@@ -58,37 +58,31 @@ class Paginator
         return $this;
     }
 
-    public function generateAsArray(): array
+    public function generate(): PagesBlueprint
     {
         $pages      = array_chunk($this->items, $this->perPage);
         $totalPages = count($pages);
 
-        $pageEntries = [];
+        $blueprint = new PagesBlueprint($pages);
         foreach (array_keys($pages) as $pageNumber) {
             $pageNumber++;
 
             if ($this->hidePageNumber($pageNumber, $totalPages)) {
                 if ($this->showDelimiter($pageNumber, $totalPages)) {
-                    $pageEntries[] = ['isDelimiter' => true];
+                    $blueprint->addDelimiter($this->delimiter);
                 }
 
                 continue;
             }
 
             if ($pageNumber !== $this->currentPage) {
-                $pageEntries[] = [
-                    'page'      => $pageNumber,
-                    'isCurrent' => false,
-                ];
+                $blueprint->addPage($pageNumber);
             } else {
-                $pageEntries[] = [
-                    'page'      => $pageNumber,
-                    'isCurrent' => true,
-                ];
+                $blueprint->addPage($pageNumber, true);
             }
         }
 
-        return $pageEntries;
+        return $blueprint;
     }
 
     private function hidePageNumber(int $pageNumber, int $totalPages): bool
