@@ -12,6 +12,8 @@ class Paginate
 
     public $eitherSide = 1;
 
+    public $pagesAtEnds = 3;
+
     public $delimiter = '...';
 
     public function __construct($items)
@@ -35,9 +37,16 @@ class Paginate
         return $this;
     }
 
-    public function showingXPagesEitherSide(int $eitherSide): self
+    public function showPagesEitherSide(int $eitherSide): self
     {
         $this->eitherSide = $eitherSide;
+
+        return $this;
+    }
+
+    public function showPagesAtEnds(int $pagesAtEnds): self
+    {
+        $this->pagesAtEnds = $pagesAtEnds;
 
         return $this;
     }
@@ -59,7 +68,7 @@ class Paginate
             $pageNumber++;
 
             if ($this->hidePageNumber($pageNumber, $totalPages)) {
-                if ($this->showDelimiter($pageNumber)) {
+                if ($this->showDelimiter($pageNumber, $totalPages)) {
                     $pageEntries[] = ['isDelimiter' => true];
                 }
 
@@ -84,16 +93,32 @@ class Paginate
 
     private function hidePageNumber(int $pageNumber, int $totalPages): bool
     {
-        if ($pageNumber >= ($this->currentPage + ($this->eitherSide + 1)) && $pageNumber <= $totalPages - 3) {
+        if ($pageNumber <= $this->pagesAtEnds) {
+            return false;
+        }
+
+        if ($pageNumber >= ($this->currentPage + ($this->eitherSide + 1)) && $pageNumber <= $totalPages - $this->pagesAtEnds) {
             return true;
         }
 
-        return $pageNumber <= ($this->currentPage - ($this->eitherSide + 1)) && $pageNumber > 3;
+        if ($pageNumber > $totalPages - $this->pagesAtEnds) {
+            return false;
+        }
+
+        return $pageNumber <= ($this->currentPage - ($this->eitherSide + 1)) && $pageNumber > $this->pagesAtEnds;
     }
 
-    private function showDelimiter(int $pageNumber): bool
+    private function showDelimiter(int $pageNumber, int $totalPages): bool
     {
         if ($pageNumber === ($this->currentPage + ($this->eitherSide + 1))) {
+            return true;
+        }
+
+        if ($this->currentPage > ($totalPages - $this->pagesAtEnds) && $pageNumber === ($totalPages - ($this->pagesAtEnds + 1))) {
+            return true;
+        }
+
+        if ($this->currentPage <= $this->pagesAtEnds && $pageNumber === $this->pagesAtEnds + 1) {
             return true;
         }
 
