@@ -11,7 +11,7 @@ class PaginateTest extends TestCase
 
         $this->assertEquals([
             ['page' => 1, 'isCurrent' => true],
-        ], $pagination->generateAsArray());
+        ], $pagination->generate()->stepsAsArray());
     }
 
     public function testPerPage()
@@ -23,7 +23,7 @@ class PaginateTest extends TestCase
             ['page' => 1, 'isCurrent' => true],
             ['page' => 2, 'isCurrent' => false],
             ['page' => 3, 'isCurrent' => false],
-        ], $pagination->generateAsArray());
+        ], $pagination->generate()->stepsAsArray());
     }
 
     public function testManyPagesWhileOnPageOne()
@@ -35,11 +35,11 @@ class PaginateTest extends TestCase
             ['page' => 1, 'isCurrent' => true],
             ['page' => 2, 'isCurrent' => false],
             ['page' => 3, 'isCurrent' => false],
-            ['isDelimiter' => true],
+            ['isDelimiter' => true, 'content' => '...'],
             ['page' => 45, 'isCurrent' => false],
             ['page' => 46, 'isCurrent' => false],
             ['page' => 47, 'isCurrent' => false],
-        ], $pagination->generateAsArray());
+        ], $pagination->generate()->stepsAsArray());
     }
 
     public function testManyPagesWhileOnLastPage()
@@ -52,11 +52,11 @@ class PaginateTest extends TestCase
             ['page' => 1, 'isCurrent' => false],
             ['page' => 2, 'isCurrent' => false],
             ['page' => 3, 'isCurrent' => false],
-            ['isDelimiter' => true],
+            ['isDelimiter' => true, 'content' => '...'],
             ['page' => 45, 'isCurrent' => false],
             ['page' => 46, 'isCurrent' => false],
             ['page' => 47, 'isCurrent' => true],
-        ], $pagination->generateAsArray());
+        ], $pagination->generate()->stepsAsArray());
     }
 
     public function testManyPagesWhileOnMiddlePage()
@@ -69,15 +69,15 @@ class PaginateTest extends TestCase
             ['page' => 1, 'isCurrent' => false],
             ['page' => 2, 'isCurrent' => false],
             ['page' => 3, 'isCurrent' => false],
-            ['isDelimiter' => true],
+            ['isDelimiter' => true, 'content' => '...'],
             ['page' => 24, 'isCurrent' => false],
             ['page' => 25, 'isCurrent' => true],
             ['page' => 26, 'isCurrent' => false],
-            ['isDelimiter' => true],
+            ['isDelimiter' => true, 'content' => '...'],
             ['page' => 45, 'isCurrent' => false],
             ['page' => 46, 'isCurrent' => false],
             ['page' => 47, 'isCurrent' => false],
-        ], $pagination->generateAsArray());
+        ], $pagination->generate()->stepsAsArray());
     }
 
     public function testShowingMorePagesEitherSide()
@@ -91,7 +91,7 @@ class PaginateTest extends TestCase
             ['page' => 1, 'isCurrent' => false],
             ['page' => 2, 'isCurrent' => false],
             ['page' => 3, 'isCurrent' => false],
-            ['isDelimiter' => true],
+            ['isDelimiter' => true, 'content' => '...'],
             ['page' => 22, 'isCurrent' => false],
             ['page' => 23, 'isCurrent' => false],
             ['page' => 24, 'isCurrent' => false],
@@ -99,11 +99,11 @@ class PaginateTest extends TestCase
             ['page' => 26, 'isCurrent' => false],
             ['page' => 27, 'isCurrent' => false],
             ['page' => 28, 'isCurrent' => false],
-            ['isDelimiter' => true],
+            ['isDelimiter' => true, 'content' => '...'],
             ['page' => 45, 'isCurrent' => false],
             ['page' => 46, 'isCurrent' => false],
             ['page' => 47, 'isCurrent' => false],
-        ], $pagination->generateAsArray());
+        ], $pagination->generate()->stepsAsArray());
     }
 
     public function testShowingMorePagesAtEnds()
@@ -119,16 +119,38 @@ class PaginateTest extends TestCase
             ['page' => 3, 'isCurrent' => false],
             ['page' => 4, 'isCurrent' => false],
             ['page' => 5, 'isCurrent' => false],
-            ['isDelimiter' => true],
+            ['isDelimiter' => true, 'content' => '...'],
             ['page' => 24, 'isCurrent' => false],
             ['page' => 25, 'isCurrent' => true],
             ['page' => 26, 'isCurrent' => false],
-            ['isDelimiter' => true],
+            ['isDelimiter' => true, 'content' => '...'],
             ['page' => 43, 'isCurrent' => false],
             ['page' => 44, 'isCurrent' => false],
             ['page' => 45, 'isCurrent' => false],
             ['page' => 46, 'isCurrent' => false],
             ['page' => 47, 'isCurrent' => false],
-        ], $pagination->generateAsArray());
+        ], $pagination->generate()->stepsAsArray());
+    }
+
+    public function testOverridingDelimiter()
+    {
+        $pagination = (new Paginator(range(1, 47)))
+            ->withDelimiter(' - ')
+            ->onPage(25)
+            ->perPage(1);
+
+        $this->assertEquals([
+            ['page' => 1, 'isCurrent' => false],
+            ['page' => 2, 'isCurrent' => false],
+            ['page' => 3, 'isCurrent' => false],
+            ['isDelimiter' => true, 'content' => ' - '],
+            ['page' => 24, 'isCurrent' => false],
+            ['page' => 25, 'isCurrent' => true],
+            ['page' => 26, 'isCurrent' => false],
+            ['isDelimiter' => true, 'content' => ' - '],
+            ['page' => 45, 'isCurrent' => false],
+            ['page' => 46, 'isCurrent' => false],
+            ['page' => 47, 'isCurrent' => false],
+        ], $pagination->generate()->stepsAsArray());
     }
 }
