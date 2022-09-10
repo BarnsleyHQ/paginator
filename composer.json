@@ -1,0 +1,29 @@
+{
+    "name": "alexbarnsley/paginate",
+    "description": "A basic pagination package",
+    "type": "library",
+    "require": {
+        "php": "^7.0|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AlexBarnsley\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Barnsley",
+            "email": "alex@barnsley.io"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^6.5"
+    },
+    "scripts": {
+        "test": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpunit tests --coverage-text --coverage-html .coverage"
+        ]
+    }
+}
