@@ -58,12 +58,12 @@ class Paginator
         return $this;
     }
 
-    public function generate(): PagesBlueprint
+    public function generate(): PageHandler
     {
         $pages      = array_chunk($this->items, $this->perPage);
         $totalPages = count($pages);
 
-        $blueprint = new PagesBlueprint($pages);
+        $blueprint = new PageHandler($pages);
         foreach (array_keys($pages) as $pageNumber) {
             $pageNumber++;
 

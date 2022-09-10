@@ -2,7 +2,7 @@
 
 namespace AlexBarnsley\Paginator;
 
-class PagesBlueprint
+class PageHandler
 {
     public $pages;
 
