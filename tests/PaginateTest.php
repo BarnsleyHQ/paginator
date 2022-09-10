@@ -118,4 +118,30 @@ class PaginateTest extends TestCase
             ['page' => 47, 'isCurrent' => false],
         ], $pagination->generateAsArray());
     }
+
+    public function testShowingMorePagesAtEnds()
+    {
+        $pagination = (new Paginate(range(1, 47)))
+            ->showPagesAtEnds(5)
+            ->onPage(25)
+            ->perPage(1);
+
+        $this->assertEquals([
+            ['page' => 1, 'isCurrent' => false],
+            ['page' => 2, 'isCurrent' => false],
+            ['page' => 3, 'isCurrent' => false],
+            ['page' => 4, 'isCurrent' => false],
+            ['page' => 5, 'isCurrent' => false],
+            ['isDelimiter' => true],
+            ['page' => 24, 'isCurrent' => false],
+            ['page' => 25, 'isCurrent' => true],
+            ['page' => 26, 'isCurrent' => false],
+            ['isDelimiter' => true],
+            ['page' => 43, 'isCurrent' => false],
+            ['page' => 44, 'isCurrent' => false],
+            ['page' => 45, 'isCurrent' => false],
+            ['page' => 46, 'isCurrent' => false],
+            ['page' => 47, 'isCurrent' => false],
+        ], $pagination->generateAsArray());
+    }
 }
