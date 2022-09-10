@@ -7,7 +7,7 @@
     },
     "autoload": {
         "psr-4": {
-            "AlexBarnsley\\": "src/"
+            "AlexBarnsley\\Paginator\\": "src/"
         }
     },
     "license": "MIT",

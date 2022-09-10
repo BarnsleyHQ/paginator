@@ -1,26 +1,13 @@
 <?php
 
-use AlexBarnsley\Paginate;
+use AlexBarnsley\Paginator\Paginator;
 use PHPUnit\Framework\TestCase;
 
 class PaginateTest extends TestCase
 {
-    // private $collection;
-
-    // protected function setUp()
-    // {
-    //     $this->collection = new Paginate([
-    //         'test1',
-    //         'test2',
-    //         'test3',
-    //         'test4',
-    //         'test5',
-    //     ]);
-    // }
-
     public function testHandlesBasicImplementation()
     {
-        $pagination = new Paginate([1, 2, 3]);
+        $pagination = new Paginator([1, 2, 3]);
 
         $this->assertEquals([
             ['page' => 1, 'isCurrent' => true],
@@ -29,7 +16,7 @@ class PaginateTest extends TestCase
 
     public function testPerPage()
     {
-        $pagination = (new Paginate([1, 2, 3]))
+        $pagination = (new Paginator([1, 2, 3]))
             ->perPage(1);
 
         $this->assertEquals([
@@ -41,7 +28,7 @@ class PaginateTest extends TestCase
 
     public function testManyPagesWhileOnPageOne()
     {
-        $pagination = (new Paginate(range(1, 47)))
+        $pagination = (new Paginator(range(1, 47)))
             ->perPage(1);
 
         $this->assertEquals([
@@ -57,7 +44,7 @@ class PaginateTest extends TestCase
 
     public function testManyPagesWhileOnLastPage()
     {
-        $pagination = (new Paginate(range(1, 47)))
+        $pagination = (new Paginator(range(1, 47)))
             ->onPage(47)
             ->perPage(1);
 
@@ -74,7 +61,7 @@ class PaginateTest extends TestCase
 
     public function testManyPagesWhileOnMiddlePage()
     {
-        $pagination = (new Paginate(range(1, 47)))
+        $pagination = (new Paginator(range(1, 47)))
             ->onPage(25)
             ->perPage(1);
 
@@ -95,8 +82,8 @@ class PaginateTest extends TestCase
 
     public function testShowingMorePagesEitherSide()
     {
-        $pagination = (new Paginate(range(1, 47)))
-            ->showingXPagesEitherSide(3)
+        $pagination = (new Paginator(range(1, 47)))
+            ->showPagesEitherSide(3)
             ->onPage(25)
             ->perPage(1);
 
@@ -121,7 +108,7 @@ class PaginateTest extends TestCase
 
     public function testShowingMorePagesAtEnds()
     {
-        $pagination = (new Paginate(range(1, 47)))
+        $pagination = (new Paginator(range(1, 47)))
             ->showPagesAtEnds(5)
             ->onPage(25)
             ->perPage(1);

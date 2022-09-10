@@ -1,8 +1,8 @@
 <?php
 
-namespace AlexBarnsley;
+namespace AlexBarnsley\Paginator;
 
-class Paginate
+class Paginator
 {
     public $items;
 
