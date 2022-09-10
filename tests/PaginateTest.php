@@ -47,6 +47,7 @@ class PaginateTest extends TestCase
         $this->assertEquals([
             ['page' => 1, 'isCurrent' => true],
             ['page' => 2, 'isCurrent' => false],
+            ['page' => 3, 'isCurrent' => false],
             ['isDelimiter' => true],
             ['page' => 45, 'isCurrent' => false],
             ['page' => 46, 'isCurrent' => false],
@@ -65,6 +66,7 @@ class PaginateTest extends TestCase
             ['page' => 2, 'isCurrent' => false],
             ['page' => 3, 'isCurrent' => false],
             ['isDelimiter' => true],
+            ['page' => 45, 'isCurrent' => false],
             ['page' => 46, 'isCurrent' => false],
             ['page' => 47, 'isCurrent' => true],
         ], $pagination->generateAsArray());
