@@ -1,5 +1,5 @@
 {
-    "name": "alexbarnsley/paginate",
+    "name": "alexbarnsley/paginator",
     "description": "A basic pagination package",
     "type": "library",
     "require": {
