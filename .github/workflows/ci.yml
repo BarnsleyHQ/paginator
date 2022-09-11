@@ -15,17 +15,12 @@ jobs:
         with:
             php-version: 7.0
 
-      - name: Get Composer Cache Path
-        id: composer-cache-dir
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
       - name: Cache composer
-        uses: actions/cache@v3
+        uses: actions/cache@v1
         id: composer-cache-php7
         with:
-            path: ${{ steps.composer-cache-dir.outputs.dir }}
+            path: ~/.composer/cache/files
             key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-            restore-keys: ${{ runner.os }}-composer-
 
       - name: Install composer
         uses: php-actions/composer@v6
@@ -55,17 +50,12 @@ jobs:
         with:
             php-version: 8.0
 
-      - name: Get Composer Cache Path
-        id: composer-cache-dir
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
       - name: Cache composer
-        uses: actions/cache@v3
+        uses: actions/cache@v1
         id: composer-cache-php8
         with:
-            path: ${{ steps.composer-cache-dir.outputs.dir }}
+            path: ~/.composer/cache/files
             key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-            restore-keys: ${{ runner.os }}-composer-
 
       - name: Install composer
         uses: php-actions/composer@v6
