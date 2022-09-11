@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 jobs:
-  7.0-test:
+  php7-test:
     runs-on: ubuntu-latest 
 
     steps:
@@ -37,7 +37,7 @@ jobs:
           files: ./coverage.xml
           verbose: true
 
-  8.0-test:
+  php8-test:
     runs-on: ubuntu-latest
 
     steps:
