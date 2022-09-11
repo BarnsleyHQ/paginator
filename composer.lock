@@ -4,9 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72a363e3a72a68c238439550f6c7927d",
+    "content-hash": "773334b31b63932cddc6c28ac00a2ba6",
     "packages": [],
     "packages-dev": [
+        {
+            "name": "alexbarnsley/phpunit-token-placeholder",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexbarnsley/phpunit-token-placeholder.git",
+                "reference": "3ee4dde778b6d0ac0a0f907464b143ae8f1c23a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexbarnsley/phpunit-token-placeholder/zipball/3ee4dde778b6d0ac0a0f907464b143ae8f1c23a4",
+                "reference": "3ee4dde778b6d0ac0a0f907464b143ae8f1c23a4",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Barnsley",
+                    "email": "alex@barnsley.io"
+                }
+            ],
+            "description": "Package used as placeholders for older versions of phpunit",
+            "support": {
+                "issues": "https://github.com/alexbarnsley/phpunit-token-placeholder/issues",
+                "source": "https://github.com/alexbarnsley/phpunit-token-placeholder/tree/1.0.0"
+            },
+            "time": "2022-09-11T14:43:21+00:00"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
