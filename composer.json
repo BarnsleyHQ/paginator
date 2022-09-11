@@ -6,6 +6,9 @@
         "php": "^7.0|^8.0"
     },
     "autoload": {
+        "files": [
+            "src/PHP8/PHPTokenNameQualified.php"
+        ],
         "psr-4": {
             "AlexBarnsley\\Paginator\\": "src/"
         }
