@@ -1,0 +1,60 @@
+name: CI
+
+on: [push]
+
+jobs:
+  php7-test:
+    runs-on: ubuntu-latest 
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+            php-version: 7.0
+
+      - name: Install composer
+        uses: php-actions/composer@v6
+        with:
+          php_version: 7.0
+          args: --profile --ignore-platform-reqs
+
+      - name: PHPUnit Tests
+        run: ./vendor/bin/phpunit --coverage-clover=coverage.xml --coverage-text tests/
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODE_COV_TOKEN }}
+          files: ./coverage.xml
+          verbose: true
+
+  php8-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+            php-version: 8.0
+
+      - name: Install composer
+        uses: php-actions/composer@v6
+        with:
+          php_version: 8.0
+          args: --profile --ignore-platform-reqs
+
+      - name: PHPUnit Tests
+        run: ./vendor/bin/phpunit --coverage-clover=coverage.xml --coverage-text tests/
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODE_COV_TOKEN }}
+          files: ./coverage.xml
+          verbose: true
